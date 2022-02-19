@@ -1,2 +1,3 @@
 # xshield-demo-lab
-Ideas, software and tools to setup a demo lab for Xshield.
+
+Designed for our valued partners, this repo describes a simple but comprehensive lab environment to showcase various Xshield use cases.
