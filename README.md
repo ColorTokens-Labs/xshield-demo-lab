@@ -13,7 +13,19 @@ as the client systems.
 
 ![Demo lab diagram](docs/images/xshield-demo-lab.png)
 
-> **_NOTE:_**  All systems must be deployed on the same network.
+> _NOTE:_  All systems must be deployed on the same network.
 You may use multiple subnets but they must be directly connected.
 
-Please refer to this [guide](3-tier-app) to setup the 3-tier IceHRM application.
+Please refer to this [guide](3-tier-app) to setup the 3-tier 
+IceHRM application.
+
+For the Simple Web App, you can just deploy nginx on a Linux server.
+For example, on a Ubuntu server this would be:
+
+```
+sudo apt install -y nginx
+```
+
+We also recommend deploying an additional VM running stock Linux. This
+will be handy for demonstrating access controls to and from network
+groups.
