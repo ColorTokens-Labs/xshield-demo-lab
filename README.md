@@ -23,9 +23,6 @@ For the Simple Web App, you can just deploy nginx on a Linux server.
 For example, on a Ubuntu server this would be:
 
 ```
+sudo hostnamectl set-hostname swa-web
 sudo apt install -y nginx
 ```
-
-We also recommend deploying an additional VM running stock Linux. This
-will be handy for demonstrating access controls to and from network
-groups.
