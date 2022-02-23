@@ -16,13 +16,8 @@ as the client systems.
 > _NOTE:_  All systems must be deployed on the same network.
 You may use multiple subnets but they must be directly connected.
 
-Please refer to this [guide](3-tier-app) to setup the 3-tier 
-IceHRM application.
+Please refer to these guides for setting up the two applications:
 
-For the Simple Web App, you can just deploy nginx on a Linux server.
-For example, on a Ubuntu server this would be:
+- [3-Tier HR application based on IceHrm](3-tier-app)
+- [A simple web application](simple-web-app)
 
-```
-sudo hostnamectl set-hostname swa-web
-sudo apt install -y nginx
-```
