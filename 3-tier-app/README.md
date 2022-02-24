@@ -52,13 +52,13 @@ You will need a two or three IceHrm sql scripts to initialize
 the database.  I've provided these here for convenience:
 
 - [icehrmdb.sql](icehrm/icehrmdb.sql)
-- [icehrm_master_data.sql](icehrm_master_data.sql)
-- [icehrm_sample_data.sql](icehrm_sample_data.sql) (Optional)
+- [icehrm_master_data.sql](icehrm/icehrm_master_data.sql)
+- [icehrm_sample_data.sql](icehrm/icehrm_sample_data.sql) (Optional)
 
 Create the database for IceHrm using the following commands:
 
 ```
-mysql -u root -p
+sudo mysql -u root -p
 mysql> create database hrms;
 mysql> create user 'hrms_user'@'%' identified by 'This_is_my_pa$$w0rd';
 mysql> grant all on hrms.* to 'hrms_user'@'%';
@@ -71,7 +71,7 @@ Now let's test connectivity to our new database, and if all is
 well, import the IceHrm SQL scripts:
 
 ```
-mysql -u hrms -p hrms
+mysql -u hrms_user -p hrms
 mysql> source icehrmdb.sql
 mysql> source icehrm_master_data.sql
 mysql> source icehrm_sample_data.sql
