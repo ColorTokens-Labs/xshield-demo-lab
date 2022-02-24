@@ -48,12 +48,12 @@ Also select "y" for the following prompts:
 - Remove test database
 - Reload privilege tables
 
-You will need a two or three IceHrm sql scripts to initialize 
+You will need three IceHrm sql scripts to initialize and populate
 the database.  I've provided these here for convenience:
 
-- [icehrmdb.sql](icehrm/icehrmdb.sql)
-- [icehrm_master_data.sql](icehrm/icehrm_master_data.sql)
-- [icehrm_sample_data.sql](icehrm/icehrm_sample_data.sql) (Optional)
+- [icehrmdb.sql](https://raw.githubusercontent.com/ColorTokens-Labs/xshield-demo-lab/main/3-tier-app/icehrm/icehrmdb.sql)
+- [icehrm_master_data.sql](https://raw.githubusercontent.com/ColorTokens-Labs/xshield-demo-lab/main/3-tier-app/icehrm/icehrm_master_data.sql)
+- [icehrm_sample_data.sql](https://raw.githubusercontent.com/ColorTokens-Labs/xshield-demo-lab/main/3-tier-app/icehrm/icehrm_sample_data.sql) (Optional datafill)
 
 Create the database for IceHrm using the following commands:
 
@@ -78,7 +78,7 @@ mysql> source icehrm_sample_data.sql
 
 ```
 
-As this is a 3-tier application and the application accessing
+As this is a 3-tier configuration and the IceHrm application accessing
 the database is on a different server, we need to allow remote
 clients to connect to our database. These commands will edit the
 mysql config file and restart the server.
@@ -89,7 +89,7 @@ sudo service mysql restart
 ```
 ## Application tier
 
-The IceHrm application will be installed on the application server VM.
+The IceHrm software will be installed on the application server VM.
 This is a PHP application that requires php >= 5.3.  On Ubuntu 20.03 LTS
 we have access to php7.4 so that is what we shall install:
 
@@ -110,12 +110,18 @@ sudo mv /var/www/icehrm_v31.0.0.OS /var/www/icehrm
 ```
 
 Now download the configuration file from [here](icehrm/config.php)
-and save it in `/var/www/icehrm/app`.  Open the file using your
-favorite editor and verify the database credentials, especially
-the password if you changed it while configuring the database
+and save it in `/var/www/icehrm/app`.  
 
 ```
-vi /var/www/icehrm/app/config.php
+wget https://raw.githubusercontent.com/ColorTokens-Labs/xshield-demo-lab/main/3-tier-app/icehrm/config.php
+sudo cp config.php /var/www/icehrm/app
+```
+
+Open the file using your favorite editor and verify the database credentials, 
+especially the password if you changed it while configuring the database
+
+```
+sudo vi /var/www/icehrm/app/config.php 
 ```
 
 We also need to set directory ownership and permissions for the `app` 
@@ -130,7 +136,7 @@ Almost there! If you don't have your database hostname in your DNS,
 add the IP address of the database VM to `/etc/hosts`.
 
 ```
-sudo echo "<hrm-db ip> hrm-db" >> /etc/hosts
+sudo bash -c 'echo "<hrm-db ip> hrm-db" >> /etc/hosts'
 ```
 
 Finally, we need to update the document root for Apache2 and set it to
@@ -138,7 +144,7 @@ Finally, we need to update the document root for Apache2 and set it to
 do the trick, and then restart `apache2`.
 
 ```
-sudo sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/icehrfm|g' /etc/apache2/sites-enabled/000-default.conf
+sudo sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/icehrm|g' /etc/apache2/sites-enabled/000-default.conf
 sudo service apache2 restart
 ```
 
@@ -168,6 +174,7 @@ If you are not using a local DNS, please add an entry for hrm-app in
 /etc/hosts:
 
 ```
+# Replace <hrm-app ip> with your VM's IP address
 sudo echo "<hrm-app ip> hrm-app" >> /etc/hosts
 ```
 
@@ -178,4 +185,4 @@ sudo service haproxy reload
 ```
 
 You should now be able to connect to IceHrm at the web server IP
-or hostname (```hrm-web```).
+or hostname (**hrm-web**).
