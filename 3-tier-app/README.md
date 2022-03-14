@@ -175,7 +175,7 @@ If you are not using a local DNS, please add an entry for hrm-app in
 
 ```
 # Replace <hrm-app ip> with your VM's IP address
-sudo echo "<hrm-app ip> hrm-app" >> /etc/hosts
+sudo bash -c 'echo "<hrm-app ip> hrm-app" >> /etc/hosts'
 ```
 
 Now reload the configuration.
